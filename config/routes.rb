@@ -11,5 +11,7 @@ Rails.application.routes.draw do
   end
 
     root to: 'admin/dashboard#index'
+    
+    get '/menu_items/images/:id/:style' => 'menu_items#image'
 
   end
