@@ -10,12 +10,12 @@ RSpec.describe MenuItem, type: :model do
     end
 
     describe 'Associations' do
-      # it { is_expected.to have_one :image}
       it { is_expected.to have_and_belong_to_many :orders }
       it { is_expected.to have_and_belong_to_many :menus }
       it { is_expected.to have_and_belong_to_many :menu_categories }
+      it { should have_attached_file(:image) }
     end
-
+    
     describe 'Database schema' do
       it { is_expected.to have_db_column :name }
       it { is_expected.to have_db_column :price }
@@ -30,6 +30,10 @@ RSpec.describe MenuItem, type: :model do
     describe 'Validations' do
       it { is_expected.to validate_presence_of :name }
       it { is_expected.to validate_presence_of :price }
+      it { should validate_attachment_presence(:image)}
+      it { should validate_attachment_content_type(:image).
+                        allowing('image/jpg', 'image/png').
+                        rejecting('text/plain', 'text/xml') }
     end
 
 end
